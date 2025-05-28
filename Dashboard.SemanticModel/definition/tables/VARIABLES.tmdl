@@ -1,0 +1,47 @@
+table VARIABLES
+	lineageTag: e8961006-cecd-4b9a-8e0c-fbb63ff979fb
+
+	measure 'Ingreso Total' = SUM(Fact_Ventas[Precio Venta sin IGV])
+		formatString: 0
+		lineageTag: 3eee8c4b-56bc-4961-a251-2439a3ce0c27
+
+	measure 'Ventas Totales' = ```
+			COUNTROWS(Fact_Ventas)
+			
+			
+			```
+		formatString: 0
+		lineageTag: d8df6d9d-a923-4f67-aa80-c0af9f820e38
+
+	measure 'Ventas Totales ID' = ```
+			COUNT(Fact_Ventas[ID])
+			
+			```
+		formatString: 0
+		lineageTag: d4bf5dde-8b29-45ec-b45a-067a6fcb1e20
+
+	measure Ganancia = ```
+			SUM(Fact_Ventas[Precio Venta sin IGV])
+			
+			```
+		lineageTag: 638847f7-ad50-422a-87f5-b34ae731e155
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Ventas = SUM(Fact_Ventas[Precio Venta sin IGV])
+		lineageTag: c9bbbf6b-3d5b-471f-9d39-8d44ca1735ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition VARIABLES = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", type text}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Columna1"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Table
+

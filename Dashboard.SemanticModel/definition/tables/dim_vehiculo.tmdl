@@ -1,0 +1,97 @@
+table dim_vehiculo
+	lineageTag: 4d686824-9b8b-468c-9a04-d25306c3a7ee
+
+	column id_vehiculo
+		dataType: int64
+		formatString: 0
+		lineageTag: b23fb97f-45f4-4a48-9996-8a62e1e93469
+		summarizeBy: none
+		sourceColumn: id_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column marca_vehiculo
+		dataType: string
+		lineageTag: be6e1f3b-4fb4-4cba-8d3b-c866e37f7151
+		summarizeBy: none
+		sourceColumn: marca_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column modelo_vehiculo
+		dataType: string
+		lineageTag: a3ea6f0f-90d5-4e3e-bb92-e8819539bd59
+		summarizeBy: none
+		sourceColumn: modelo_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_vehiculo
+		dataType: string
+		lineageTag: d8fa473a-e2ce-46c7-b8b0-f82852d86f27
+		summarizeBy: none
+		sourceColumn: tipo_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column año_vehiculo
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a0fe2cc-61e6-4d81-8949-85f8b2bdfce4
+		summarizeBy: none
+		sourceColumn: año_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column EsMejorVersion =
+			
+			VAR Marca = SELECTEDVALUE(dim_vehiculo[marca_vehiculo])
+			VAR Modelo = SELECTEDVALUE(dim_vehiculo[modelo_vehiculo])
+			VAR Anio = SELECTEDVALUE(dim_vehiculo[año_vehiculo])
+			
+			VAR TablaGanancias =
+			    SUMMARIZE (
+			        FILTER (
+			            dim_vehiculo,
+			            dim_vehiculo[marca_vehiculo] = Marca &&
+			            dim_vehiculo[modelo_vehiculo] = Modelo
+			        ),
+			        dim_vehiculo[año_vehiculo],
+			        "GananciaTotal",
+			            CALCULATE (
+			                [Ganancia]
+			            )
+			    )
+			
+			VAR MaxGanancia =
+			    MAXX (TablaGanancias, [GananciaTotal])
+			
+			VAR GananciaActual =
+			    CALCULATE (
+			        [Ganancia],
+			        dim_vehiculo[marca_vehiculo] = Marca &&
+			        dim_vehiculo[modelo_vehiculo] = Modelo &&
+			        dim_vehiculo[año_vehiculo] = Anio
+			    )
+			
+			RETURN IF (GananciaActual = MaxGanancia, 1, 0)
+		formatString: 0
+		lineageTag: 2b642a40-cb2a-4977-aa7e-145bbcedaee9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_vehiculo = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\David\Documents\UCA\BI\VentasVehiculos.xlsx"), null, true),
+				    dim_vehiculo_Table = Origen{[Item="dim_vehiculo",Kind="Table"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(dim_vehiculo_Table,{{"id_vehiculo", Int64.Type}, {"marca_vehiculo", type text}, {"modelo_vehiculo", type text}, {"tipo_vehiculo", type text}, {"año_vehiculo", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
