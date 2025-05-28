@@ -33,6 +33,31 @@ table VARIABLES
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure Ingresos = ```
+			SUM(Fact_Ventas[Precio Venta sin IGV])
+			
+			```
+		lineageTag: c565181f-0635-47ef-8114-e07d5caef445
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top Vendedores' = ```
+			
+			CALCULATETABLE(
+			    TOPN(
+			        10,
+			        SUMMARIZE(
+			            dim_vendedor,
+			            Dim_Vendedor[Vendedor],
+			            "Ingresos", [Ingresos]
+			        ),
+			        [Ingresos], DESC
+			    )
+			)
+			
+			```
+		lineageTag: 4632e437-240d-4e71-819c-789db84b43f7
+
 	partition VARIABLES = m
 		mode: import
 		source =

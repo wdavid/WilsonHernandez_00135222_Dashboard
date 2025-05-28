@@ -45,6 +45,15 @@
           "z": 0.00
         },
         {
+          "config": "{\"name\":\"4f4fa3efeb147e6000dc\",\"layouts\":[{\"id\":0,\"position\":{\"x\":556.6666666666667,\"y\":413.33333333333337,\"z\":1004,\"width\":445,\"height\":381.6666666666667,\"tabOrder\":1003}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim_Vendedor.Vendedor\"},{\"queryRef\":\"VARIABLES.Ingresos\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim_Vendedor\",\"Type\":0},{\"Name\":\"v\",\"Entity\":\"VARIABLES\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Vendedor\"},\"Name\":\"Dim_Vendedor.Vendedor\",\"NativeReferenceName\":\"Vendedor\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"Ingresos\"},\"Name\":\"VARIABLES.Ingresos\",\"NativeReferenceName\":\"Ingresos\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 381.67,
+          "width": 445.00,
+          "x": 556.67,
+          "y": 413.33,
+          "z": 1004.00
+        },
+        {
           "config": "{\"name\":\"7879af00d64b8c4dc048\",\"layouts\":[{\"id\":0,\"position\":{\"x\":19,\"y\":830,\"z\":1001,\"width\":445,\"height\":381,\"tabOrder\":1001}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_vehiculo.marca_vehiculo\"},{\"queryRef\":\"dim_vehiculo.modelo_vehiculo\"},{\"queryRef\":\"dim_vehiculo.año_vehiculo\"},{\"queryRef\":\"VARIABLES.Ganancia\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_vehiculo\",\"Type\":0},{\"Name\":\"v\",\"Entity\":\"VARIABLES\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"modelo_vehiculo\"},\"Name\":\"dim_vehiculo.modelo_vehiculo\",\"NativeReferenceName\":\"modelo_vehiculo\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"Ganancia\"},\"Name\":\"VARIABLES.Ganancia\",\"NativeReferenceName\":\"Ganancia\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"año_vehiculo\"},\"Name\":\"dim_vehiculo.año_vehiculo\",\"NativeReferenceName\":\"año_vehiculo\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"marca_vehiculo\"},\"Name\":\"dim_vehiculo.marca_vehiculo\",\"NativeReferenceName\":\"marca_vehiculo\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"marca_vehiculo\"}}}]},\"drillFilterOtherVisuals\":true}}",
           "filters": "[]",
           "height": 381.00,
